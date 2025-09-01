@@ -109,6 +109,7 @@ Built with **Node.js** and **Express.js**, the API enables users to earn points,
   "type": "earn | redeem",
   "amount": "number",
   "description": "string",
+  "expiresAt": "date",
   "createdAt": "date"
 }
 ```
