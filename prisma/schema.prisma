@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Models
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  points Point[]
+}
+
+model Point {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  type        PointType
+  amount      Int
+  description String
+  expiresAt   DateTime? // Only for earned points
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Reward {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  pointsCost  Int
+  isActive    Boolean  @default(true)
+  stock       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// Enums
+enum PointType {
+  EARN
+  REDEEM
+}
