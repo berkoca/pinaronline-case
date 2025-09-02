@@ -1,8 +1,8 @@
-class BadRequestError extends Error {
-  public status: number = 400;
+import BaseHTTPError from "./base-http-error";
 
+class BadRequestError extends BaseHTTPError {
   constructor(message: string) {
-    super(message);
+    super(400, message);
   }
 }
 
